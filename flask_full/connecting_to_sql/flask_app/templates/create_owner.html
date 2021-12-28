@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Create Owner</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="d-flex justify-content-between pt-5">
+                <a class="btn btn-secondary text-center" href="/animals" class="mt-4">Check out our animals</a>
+                <h1>Welcome To Caden's Pet Clinic</h1>
+                <a class="btn btn-secondary text-center" href="/new/animal" class="mt-4">New Animal? Click Here</a>
+            </div>
+            <div class="sub-form container d-flex align-items-center justify-content-center">
+                <div class="row bg-primary p-5 rounded-pill shadow-lg" >
+                    <div class="col mx-auto align-items-center">
+                        <h1>Create A Owner</h1>
+                        <form action="/create/owner" method="post">
+                            <label class="form-label" for="first_name">First Name</label>
+                            <input class="form-control" type="text" name="first_name">
+                            <label class="form-label"  for="last_name">Last Name</label>
+                            <input class="form-control" type="text" name="last_name">
+                            <label class="form-label" for="email">Email:</label>
+                            <input class="form-control" type="text" name="email">
+                            <input class="btn btn-success mt-3" type="submit" value="Submit">
+                        </form>
+                        {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+                        {% if messages %}                            <!-- check if there are any messages -->
+                            {% for message in messages %}            <!-- loop through the messages -->
+                                <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+.wrapper{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+h1{
+    text-align: center;
+}
+.boxes{
+    width: 200px;
+    height: 200px;
+    margin: 20px;
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Upload new File</h1>
+    {% with messages = get_flashed_messages() %}   
+        {% if messages %}                           
+            {% for message in messages %}         
+                <p style="color: red;">{{message}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form method=post action="/upload" enctype=multipart/form-data>
+    <p><input type=file name=file>
+        <input type=submit value=Upload>
+    </form>
+    <div style="display: flex;">
+        {%for image in images%}
+        <div style="height: 200px; width: 200px; background-color: aliceblue; margin: 5px;">
+            <a href="single/image/{{image.id}}">
+                <img style="width: 200px;" src="{{image.path}}" alt="img">
+            </a>
+        </div>
+        {%endfor%}
+    </div>
+</body>
+</html>

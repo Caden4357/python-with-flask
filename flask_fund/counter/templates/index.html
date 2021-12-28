@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>The Count</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="main">
+            <h1>{{session['count']}}</h1>
+            <h1>Counter</h1>
+            <div class="links">
+                <a href="/add_one">Click to add 1</a>
+                <a href="/add_two">Click to add 2</a>
+                <form action="/any_number" method="post">
+                    <input type="number" name="number">
+                    <input type='submit' value='Add'>
+                </form>
+                <a href="/reset">Reset</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
