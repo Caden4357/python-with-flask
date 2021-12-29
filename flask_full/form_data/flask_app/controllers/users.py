@@ -4,18 +4,26 @@ from flask import render_template, jsonify, request, redirect
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    all_users = User.get_all()
+    return render_template('index.html', all_users=all_users)
 
 
-@app.route('/users')
-def users():
-    return jsonify(User.get_all_json())
+# @app.route('/users')
+# def users():
+#     return jsonify(User.get_all_json())
 
-@app.route('/create/user',methods=['POST'])
+@app.route('/create/user', methods=['POST'])
 def create_user():
-    print(request.form)
-    User.save(request.form)
-    return jsonify(message="Success")
+    user_name = request.form['user_name']
+    email = request.form['email']
+    if user_name and email:
+        User.save(request.form)
+        return jsonify({
+            'user_name': user_name,
+            'email': email,
+            "message":"Success"
+            })
+    return jsonify({'error': "Missing Data!"})
 
 
 

@@ -23,7 +23,7 @@ class User:
         return cls(results[0])
 
     @classmethod
-    def get_all_json(cls):
+    def get_all(cls):
         query = "SELECT * FROM users;"
         results = connectToMySQL(cls.db).query_db(query)
         users = []
