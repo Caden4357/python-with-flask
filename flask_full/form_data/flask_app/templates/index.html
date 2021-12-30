@@ -22,7 +22,7 @@
                 <tbody id='users'>
                     {%for user in all_users%}
                     <tr>
-                        <td>{{user.user_name}}</td>
+                        <td><a onclick="findOne()" href="/one/user/{{user.id}}">{{user.user_name}}</a></td>
                         <td>{{user.email}}</td>
                     </tr>
                     {%endfor%}

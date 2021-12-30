@@ -41,9 +41,7 @@
                 else{
                     console.log("this is data message: " + data.message)
                     let users = document.getElementById('users');
-
                     let row = document.createElement('tr')
-
                     new_name=document.createElement('td');
                     new_name.innerHTML=data.user_name;
                     console.log(data.user_name)
@@ -59,7 +57,10 @@
             });
     }
 
-
+let findOne = (id) => {
+    alert("it has been clicked")
+    fetch("http://localhost:5000/one/user/<int:id>")
+}
 // $(document).ready(function() {
 //     $('.myForm').submit(function (e) { 
 //         e.preventDefault();
