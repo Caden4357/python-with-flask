@@ -3,6 +3,12 @@ from flask import flash
 import re
 from ..models import image
 
+# TODOLIST:
+# 1.) ADD VALIDATION TO KEEP USERNAME UNIQUE
+# 2.) ADD UPDATE USER FEATURE TO UPDATE USER PROFILE PICTURE (LOOK INTO VALIDATING AND UPADTING PASSWORD)
+# 3.) 
+#///////////////////////////////////////////////////////////////////
+
 class User:
     db_name = "image_upload"
     def __init__(self, data):
@@ -33,6 +39,14 @@ class User:
         return cls(results[0])
 
     @classmethod
+    def get_by_user_name(cls, data):
+        query = "SELECT * FROM users WHERE user_name = %(user_name)s"
+        results = connectToMySQL(cls.db_name).query_db(query, data)
+        if len(results) == 0:
+            return False
+        return cls(results[0])
+
+    @classmethod
     def get_one_user(cls, data):
         query = "SELECT * FROM users LEFT JOIN images ON images.users_id = users.id WHERE users.id = %(id)s"
         results = connectToMySQL(cls.db_name).query_db(query, data)
@@ -47,7 +61,7 @@ class User:
             if row['images.id'] is not None:
                 this_image = image.Image(image_info)
                 this_user.images.append(this_image)
-            print(f"this users images: ${image_info}")
+            print(f"this users images: {image_info}")
         return this_user
 
     @staticmethod
@@ -55,12 +69,19 @@ class User:
         EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
         is_valid = True
         user_with_email = User.get_by_email({'email': data['email']})
+        user_with_user_name = User.get_by_user_name({'user_name': data['user_name']})
         if len(data['first_name']) < 1:
             is_valid = False
             flash('First name must be more than 1 character')
         if len(data['last_name']) < 1:
             is_valid = False
             flash('Last name must be more than 1 character')
+        if len(data['user_name']) < 2:
+            is_valid = False
+            flash('Username must be more than 2 character')
+        elif user_with_user_name:
+            is_valid = False
+            flash('Username already exits, please choose a new one')
         if len(data['email']) == 0:
             is_valid = False
             flash('Enter an email')
@@ -81,7 +102,6 @@ class User:
     @staticmethod
     def validate_login(data):
         is_valid = True
-        
         if len(data['email']) == 0:
             flash('Email is required')
             is_valid = False
