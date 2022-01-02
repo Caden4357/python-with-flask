@@ -26,10 +26,10 @@
         </form>
         <div style="display: flex; justify-content: space-evenly;">
             {%for image in all_images%}
-            <div style="background-color: aliceblue;">
-                <div style="height: 200px; width: 200px;">
+            <div style="background-color: aliceblue; border: 2px solid black;">
+                <div style="height: 200px; width: 200px; ">
                     <a href="user_who_posted/{{image.user.id}}">
-                        <img style="width: 200px;" src="{{image.path}}" alt="img">
+                        <img style="width: 200px; image-rendering: pixelated;" src="{{image.path}}" alt="img">
                     </a>
                 </div>
                 <h4>Posted By:</h4>

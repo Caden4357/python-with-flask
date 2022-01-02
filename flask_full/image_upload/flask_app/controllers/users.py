@@ -1,9 +1,22 @@
 from flask_app import app
+import os
 from flask import render_template, redirect, request, session 
 from ..models import user, image
 from flask import flash
+from werkzeug.utils import secure_filename
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
+
+# Path to the uploads folder in the static folder I did it pathed to the static folder so it would be easier to access
+UPLOAD_FOLDER = ('C:/Users/wilco/OneDrive/Desktop/SCHOOL/python_w_flask/flask_full/image_upload/flask_app/static/profilePictures/')
+
+# defining the types of files we accept
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+def allowed_file(filename):
+    return '.' in filename and \
+        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/')
 def index():
@@ -56,6 +69,41 @@ def one_users_profile(id):
     this_user = user.User.get_one_user(data)
     print(this_user)
     return render_template('user_profile.html', this_user=this_user)
+
+@app.route("/change_profile_pic/<int:id>")
+def change_profile_pic(id):
+    data = {
+        'id': id
+    }
+    this_user=user.User.get_one_user(data)
+    print(this_user)
+    return render_template('update_profile.html', this_user=this_user)
+
+@app.route('/update/profile_pic/<int:id>', methods=['POST'])
+def upload_profile_pic(id):
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect('/dashboard')
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect('/dashboard')
+        if file and allowed_file(file.filename):
+            print(UPLOAD_FOLDER)
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            print(f"this is line 34 : {UPLOAD_FOLDER}")
+            data = {
+                'id':id,
+                'profile_pic': "/static/profilePictures/" + filename,
+            }
+            user.User.update_profile_pic(data)
+        return redirect('/dashboard')
+
 
 @app.route('/logout')
 def logout():

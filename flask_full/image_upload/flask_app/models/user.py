@@ -4,9 +4,8 @@ import re
 from ..models import image
 
 # TODOLIST:
-# 1.) ADD VALIDATION TO KEEP USERNAME UNIQUE
-# 2.) ADD UPDATE USER FEATURE TO UPDATE USER PROFILE PICTURE (LOOK INTO VALIDATING AND UPADTING PASSWORD)
-# 3.) 
+# 1.) ADD UPDATE USER FEATURE TO UPDATE USER PROFILE PICTURE (LOOK INTO VALIDATING AND UPADTING PASSWORD)
+# 2.) 
 #///////////////////////////////////////////////////////////////////
 
 class User:
@@ -63,6 +62,11 @@ class User:
                 this_user.images.append(this_image)
             print(f"this users images: {image_info}")
         return this_user
+    
+    @classmethod
+    def update_profile_pic(cls,data):
+        query="UPDATE users set profile_pic = %(profile_pic)s WHERE id = %(id)s"
+        return connectToMySQL(cls.db_name).query_db(query,data)
 
     @staticmethod
     def validate_registration(data):
