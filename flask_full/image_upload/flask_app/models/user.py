@@ -4,7 +4,7 @@ import re
 from ..models import image
 
 # TODOLIST:
-# 1.) ADD UPDATE USER FEATURE TO UPDATE USER PROFILE PICTURE (LOOK INTO VALIDATING AND UPADTING PASSWORD)
+# 1.) UPDATE USER SO THEY CAN UPDATE EVERYTHING INCLUDING PASSWORD VIA EMAIL 
 # 2.) 
 #///////////////////////////////////////////////////////////////////
 
@@ -67,6 +67,13 @@ class User:
     def update_profile_pic(cls,data):
         query="UPDATE users set profile_pic = %(profile_pic)s WHERE id = %(id)s"
         return connectToMySQL(cls.db_name).query_db(query,data)
+
+
+# UPDATE USER PROFILE
+    # @classmethod
+    # def update_profile(cls,data):
+    #     query="UPDATE users set first_name=%(first_name)s,last_name=%(last_name)s, first_name=%(first_name)s profile_pic = %(profile_pic)s WHERE id = %(id)s"
+    #     return connectToMySQL(cls.db_name).query_db(query,data)
 
     @staticmethod
     def validate_registration(data):

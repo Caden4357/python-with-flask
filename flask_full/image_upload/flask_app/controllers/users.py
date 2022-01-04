@@ -20,7 +20,11 @@ def allowed_file(filename):
 
 @app.route('/')
 def index():
-    return render_template('log_reg.html')
+    return render_template('login.html')
+
+@app.route('/register_page')
+def register_page():
+    return render_template('register.html')
 
 @app.route('/register', methods=['POST'])
 def create_user():
@@ -60,7 +64,7 @@ def login():
     session['user_name'] = user_from_db.user_name
     return redirect('/dashboard')
 
-@app.route('/user_who_posted/<int:id>')
+@app.route('/profile/<int:id>')
 def one_users_profile(id):
     print(id)
     data = {

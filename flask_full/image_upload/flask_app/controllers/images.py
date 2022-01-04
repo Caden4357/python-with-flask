@@ -5,8 +5,7 @@ from ..models import image, user
 from werkzeug.utils import secure_filename
 
 # TODOLIST:
-# 1.) FIX IMAGE THUMBNAIL TO NOT BE BLURRY IF ITS A BIG PICTURE EX. MOUNTAINS PIC 
-# 2.) FIX IMAGE SIZE SO ITS NOT BLURRY IM THINKING ON THE DASHBOARD HAVE ALL THE IMAGES DISPLAY LIKE THUMBNAILS BUT IF YOU CLICK ON IT IT WILL DISPLAY FULL SIZE 
+# 1.) DASHBOARD HAVE ALL THE IMAGES DISPLAY LIKE THUMBNAILS BUT IF YOU CLICK ON IT IT WILL DISPLAY FULL SIZE 
 #///////////////////////////////////////////////////////////////////
 
 # Path to the uploads folder in the static folder I did it pathed to the static folder so it would be easier to access

@@ -18,11 +18,13 @@ html{
     text-align: center;
     line-height: 1.45;
 }
+.parent{
+    display: grid;
+    height: 100.7rem;
+}
 .wrapper{
     max-width: 200rem;
-    height: 100vh;
-    padding: 0 3.2rem;
-    margin: 0 auto;
+    height: 100%;
     background-color: rgb(87, 40, 40);
 }
 label{
@@ -32,11 +34,19 @@ input, input[type="text"], input[type="password"],input[type="submit"]{
     font-size: 1.8rem;
     /* border-radius: 15px; */
 }
+a{
+    text-decoration: none;
+    font-size: 1.8rem;
+    color: aqua;
+}
+a:hover{
+    color: rgb(106, 146, 146);
+}
 .reg-log-container{
     max-width: 80rem;
     margin: 0 auto;
     position: relative;
-    top: 25%;
+    top: 15%;
 }
 .login-form{
     max-height: 50%;

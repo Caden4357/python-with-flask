@@ -1,0 +1,29 @@
+{%extends 'base.html'%}
+{%block content%}
+<div class="reg-log-container bg-secondary p-5">
+    <h1 class="login-header">Welcome to your <br> Gallery</h1>
+    <h1 class="login-header-register">Register</h1>
+    <form class="reg-form" action="/register" method="post">
+        <label class="form-label" for="first_name">First Name:</label>
+        <input class="form-control" type="text" name="first_name">
+        <label class="form-label" for="last_name">Last Name:</label>
+        <input class="form-control" type="text" name="last_name">
+        <label class="form-label" for="email">Email:</label>
+        <input class="form-control" type="text" name="email">
+        <label class="form-label" for="user_name">Username:</label>
+        <input class="form-control" type="text" name="user_name">
+        <label class="form-label" for="password">Password</label>
+        <input class="form-control" type="password" name="password">
+        <label class="form-label" for="confirm_password">Confirm Password</label>
+        <input class="form-control" type="password" name="confirm_password">
+        <input class="btn btn-primary" type="submit" value="Register">
+    </form>
+    {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+        {% if messages %}                            <!-- check if there are any messages -->
+            {% for message in messages %}            <!-- loop through the messages -->
+                <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+{%endblock%}

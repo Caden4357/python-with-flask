@@ -1,0 +1,22 @@
+{%extends 'base.html'%}
+{%block content%}
+<div class="reg-log-container bg-secondary p-5">
+    <h1 class="login-header">Welcome to your <br> Gallery</h1>
+    {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+        {% if messages %}                            <!-- check if there are any messages -->
+            {% for message in messages %}            <!-- loop through the messages -->
+                <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <h1>Log in</h1>
+    <form class="login-form" action="/login" method="post">
+        <label class="form-label" for="email">Email:</label>
+        <input class="form-control" type="text" name="email">
+        <label class="form-label" for="password">Password</label>
+        <input class="form-control" type="password" name="password">
+        <input class="btn btn-primary" type="submit" value="Log in">
+    </form>
+    <a href="/register_page">Not a member create account now!</a>
+</div>
+{%endblock%}

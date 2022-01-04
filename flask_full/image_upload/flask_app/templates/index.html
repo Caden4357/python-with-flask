@@ -10,7 +10,9 @@
 <body>
     <div class="container">
         <h1>Welcome {{session['user_name'] }}</h1>
-        <img style="height: 200px; width: 200px;" src="{{this_user.profile_pic}}" alt="">
+        <a href="/profile/{{this_user.id}}">
+            <img style="height: 200px; width: 200px;" src="{{this_user.profile_pic}}" alt="">
+        </a>
         <a href="/logout">Logout</a>
         <h1>Upload new File</h1>
         {% with messages = get_flashed_messages() %}   
@@ -28,9 +30,7 @@
             {%for image in all_images%}
             <div style="background-color: aliceblue; border: 2px solid black;">
                 <div style="height: 200px; width: 200px; ">
-                    <a href="user_who_posted/{{image.user.id}}">
-                        <img style="width: 200px; image-rendering: pixelated;" src="{{image.path}}" alt="img">
-                    </a>
+                    <img style="width: 200px; image-rendering: pixelated;" src="{{image.path}}" alt="img">
                 </div>
                 <h4>Posted By:</h4>
                 <p>{{image.user.user_name}}</p>
