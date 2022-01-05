@@ -1,10 +1,11 @@
-from flask_app import app
+from flask_app import app, mail
 import os
-from flask import render_template, redirect, request, session 
+from flask import render_template, redirect, request, session, url_for
 from ..models import user, image
 from flask import flash
 from werkzeug.utils import secure_filename
 from flask_bcrypt import Bcrypt
+from flask_mail import Message
 bcrypt = Bcrypt(app)
 
 # Path to the uploads folder in the static folder I did it pathed to the static folder so it would be easier to access
@@ -107,6 +108,38 @@ def upload_profile_pic(id):
             }
             user.User.update_profile_pic(data)
         return redirect('/dashboard')
+
+def send_reset_email(user):
+    token = user.get_reset_token()
+    msg = Message("password reset request", sender='noreply@demo.com', recipients=[user.email])
+    print("this is email " + user.email)
+    msg.body = f'''To reset your password click the link:
+{url_for('reset_token', token=token, _external=True)}
+'''
+    mail.send(msg)
+
+@app.route('/reset_password')
+def reset_request():
+    return render_template('reset_password.html')
+    
+@app.route('/req/reset_password', methods=['POST'])
+def reset_password_form():
+    data ={
+        'email': request.form['email']
+    }
+    this_user = user.User.get_by_email(data)
+    if not this_user:
+        flash("No account with that email sign up")
+    else:
+        send_reset_email(this_user)
+        flash('An email has been set with instructions to reset password')
+    return redirect('/')
+
+
+@app.route('/req/reset_password/<token>', methods=['POST'])
+def reset_token(token):
+    this_user = user.User.verify_reset_token(token)
+    return render_template('reset_password_form.html')
 
 
 @app.route('/logout')

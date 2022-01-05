@@ -19,7 +19,7 @@ html{
     line-height: 1.45;
 }
 .parent{
-    display: grid;
+    /* display: grid; */
     height: 100.7rem;
 }
 .wrapper{
