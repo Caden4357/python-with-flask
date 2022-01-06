@@ -64,10 +64,21 @@ class User:
                 this_user.images.append(this_image)
             print(f"this users images: {image_info}")
         return this_user
+    @classmethod
+    def get_one_user_only(cls, data):
+        query = "SELECT * FROM users WHERE id = %(id)s"
+        results = connectToMySQL(cls.db_name).query_db(query, data)
+        this_user = cls(results[0])
+        return this_user
     
     @classmethod
     def update_profile_pic(cls,data):
         query="UPDATE users set profile_pic = %(profile_pic)s WHERE id = %(id)s"
+        return connectToMySQL(cls.db_name).query_db(query,data)
+
+    @classmethod
+    def change_password(cls,data):
+        query = "UPDATE users set password = %(password)s WHERE id = %(id)s"
         return connectToMySQL(cls.db_name).query_db(query,data)
 
     def get_reset_token(self, expires_sec=1800):
@@ -79,9 +90,10 @@ class User:
         s = Serializer(app.config['SECRET_KEY'])
         try:
             user_id = s.loads(token)['user_id']
+            print(user_id)
         except:
             return None
-        return User.get_one_user(user_id)
+        return User.get_one_user_only({'id':user_id})
 
 # UPDATE USER PROFILE
     # @classmethod
@@ -120,7 +132,7 @@ class User:
             is_valid = False
             flash('Password must be more than 6 characters')
         elif data['password'] != data['confirm_password']:
-            flash("Password don't match")
+            flash("Passwords don't match")
             is_valid = False
         return is_valid
     
@@ -132,5 +144,16 @@ class User:
             is_valid = False
         if len(data['password']) == 0:
             flash('Password is required')
+            is_valid = False
+        return is_valid
+    
+    @staticmethod
+    def validate_password_reset(data):
+        is_valid=True
+        if len(data['password']) < 6:
+            is_valid = False
+            flash('Password must be more than 6 characters')
+        elif data['password'] != data['confirm_password']:
+            flash("Passwords don't match")
             is_valid = False
         return is_valid

@@ -111,7 +111,7 @@ def upload_profile_pic(id):
 
 def send_reset_email(user):
     token = user.get_reset_token()
-    msg = Message("password reset request", sender='noreply@demo.com', recipients=[user.email])
+    msg = Message("Password Reset Request", sender='noreply@demo.com', recipients=[user.email])
     print("this is email " + user.email)
     msg.body = f'''To reset your password click the link:
 {url_for('reset_token', token=token, _external=True)}
@@ -136,10 +136,35 @@ def reset_password_form():
     return redirect('/')
 
 
-@app.route('/req/reset_password/<token>', methods=['POST'])
+@app.route('/req/reset_password/<string:token>')
 def reset_token(token):
-    this_user = user.User.verify_reset_token(token)
-    return render_template('reset_password_form.html')
+    print("this is the token " + token)
+    this_one_user = user.User.verify_reset_token(token)
+    if this_one_user is None:
+        flash('This token is expired')
+        return redirect(url_for('reset_request'))
+    # this_user = user.User.verify_reset_token(token)
+    # if not user.User.validate_password_reset(request.form):
+    #     return redirect('/')
+    # pw_hash = bcrypt.generate_password_hash(request.form['password'])
+    # data = {
+    #     'id': session['user_id'],
+    #     'password': pw_hash
+    # }
+    # user.User.change_password(data)
+    return render_template('reset_password_form.html', this_one_user=this_one_user)
+
+@app.route('/req/reset_password/form/<int:id>', methods=['POST'])
+def reset_password(id):
+    if not user.User.validate_password_reset(request.form):
+        return redirect('/')
+    pw_hash = bcrypt.generate_password_hash(request.form['password'])
+    data = {
+        'id': id,
+        'password': pw_hash
+    }
+    user.User.change_password(data)
+    return redirect('/')
 
 
 @app.route('/logout')
