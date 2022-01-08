@@ -14,7 +14,10 @@
         <img style="height: 200px; width: 200px;" src="{{this_user.profile_pic}}" alt="">
         <form action="/update/profile_pic/{{this_user.id}}" method="post" enctype=multipart/form-data>
             <label for="profile_pic">Change Profile Picture</label>
-            <input type="file" name="file">
+            <label for="file-upload" class="custom-file-upload">
+                Upload New Profile Picture
+            </label>
+            <input id="file-upload" type="file" name="file">
             <input type="submit" value="Upload">
         </form>
     </div>

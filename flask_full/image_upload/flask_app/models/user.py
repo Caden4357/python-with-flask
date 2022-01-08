@@ -64,12 +64,6 @@ class User:
                 this_user.images.append(this_image)
             print(f"this users images: {image_info}")
         return this_user
-    @classmethod
-    def get_one_user_only(cls, data):
-        query = "SELECT * FROM users WHERE id = %(id)s"
-        results = connectToMySQL(cls.db_name).query_db(query, data)
-        this_user = cls(results[0])
-        return this_user
     
     @classmethod
     def update_profile_pic(cls,data):
@@ -93,7 +87,7 @@ class User:
             print(user_id)
         except:
             return None
-        return User.get_one_user_only({'id':user_id})
+        return User.get_one_user({'id':user_id})
 
 # UPDATE USER PROFILE
     # @classmethod

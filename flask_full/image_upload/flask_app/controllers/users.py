@@ -30,7 +30,7 @@ def register_page():
 @app.route('/register', methods=['POST'])
 def create_user():
     if not user.User.validate_registration(request.form):
-        return redirect('/')
+        return redirect('/register_page')
     pw_hash = bcrypt.generate_password_hash(request.form['password'])
     pathToDefaultPic = "/static/profilePictures/blank-profile-pic.png"
     user_info = {
@@ -112,7 +112,7 @@ def upload_profile_pic(id):
 def send_reset_email(user):
     token = user.get_reset_token()
     msg = Message("Password Reset Request", sender='noreply@demo.com', recipients=[user.email])
-    print("this is email " + user.email)
+    # print("this is email " + user.email)
     msg.body = f'''To reset your password click the link:
 {url_for('reset_token', token=token, _external=True)}
 '''
