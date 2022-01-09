@@ -9,20 +9,23 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/general.css') }}">
 </head>
 <body>
+    <!-- NEED TO MAKE BASETWO.HTML FOR DASHBOARD PROFILE ETC -->
+    <!-- FINISH NAV BAR -->
+    <!-- ADD DARK/LIGHT MODE OPTION -->
     <div class="container">
         <nav class="nav">
-            <a href="#">Navbar</a>
-            <h2 >Scrapbook</h2>
+            <a href="/logout">Logout</a>
+            <h1>Scrapbook</h1>
+            <!-- THIS SEARCH BAR SHOULD BE A SEARCHBAR THAT USES AJAX TO SEARCH FOR USERS BY THEIR USERNAME -->
             <form class="nav-form">
                 <input type="search" placeholder=" Search" aria-label=" Search">
                 <input class="btn btn-outline-success" type="submit">
             </form>
         </nav>
-        <h1>Welcome {{session['user_name'] }}</h1>
+        <h1>Welcome {{this_user.user_name }}</h1>
         <a href="/profile/{{this_user.id}}">
             <img style="height: 200px; width: 200px;" src="{{this_user.profile_pic}}" alt="">
         </a>
-        <a href="/logout">Logout</a>
         <h1>Upload new File</h1>
         {% with messages = get_flashed_messages() %}   
             {% if messages %}                           

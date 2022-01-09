@@ -17,8 +17,7 @@ html{
     height: 10rem;
     position: relative;
     display: flex;
-    /* justify-content: space-between; */
-    gap: 20rem;
+    gap: 50rem;
     align-items: center;
     background-color: #ccc;
 }

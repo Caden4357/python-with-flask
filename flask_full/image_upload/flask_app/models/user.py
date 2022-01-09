@@ -71,6 +71,11 @@ class User:
         return connectToMySQL(cls.db_name).query_db(query,data)
 
     @classmethod
+    def update_profile(cls,data):
+        query="UPDATE users set first_name=%(first_name)s,last_name=%(last_name)s, email=%(email)s, user_name = %(user_name)s WHERE id = %(id)s"
+        return connectToMySQL(cls.db_name).query_db(query,data)
+
+    @classmethod
     def change_password(cls,data):
         query = "UPDATE users set password = %(password)s WHERE id = %(id)s"
         return connectToMySQL(cls.db_name).query_db(query,data)
@@ -88,12 +93,6 @@ class User:
         except:
             return None
         return User.get_one_user({'id':user_id})
-
-# UPDATE USER PROFILE
-    # @classmethod
-    # def update_profile(cls,data):
-    #     query="UPDATE users set first_name=%(first_name)s,last_name=%(last_name)s, first_name=%(first_name)s profile_pic = %(profile_pic)s WHERE id = %(id)s"
-    #     return connectToMySQL(cls.db_name).query_db(query,data)
 
     @staticmethod
     def validate_registration(data):
@@ -130,6 +129,38 @@ class User:
             is_valid = False
         return is_valid
     
+
+    @staticmethod
+    def validate_update_profile(data, id):
+        EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
+        is_valid = True
+        user_with_email = User.get_by_email({'email': data['email']})
+        user_with_user_name = User.get_by_user_name({'user_name': data['user_name']})
+        if len(data['first_name']) < 1:
+            is_valid = False
+            flash('First name must be more than 1 character')
+        if len(data['last_name']) < 1:
+            is_valid = False
+            flash('Last name must be more than 1 character')
+        if len(data['user_name']) < 2:
+            is_valid = False
+            flash('Username must be more than 2 character')
+        elif user_with_user_name:
+            if user_with_user_name.id != id:
+                is_valid = False
+                flash('Username already exits, please choose a new one')
+        if len(data['email']) == 0:
+            is_valid = False
+            flash('Enter an email')
+        elif not EMAIL_REGEX.match(data['email']):
+            is_valid = False
+            flash('Invalid email address')
+        elif user_with_email:
+            if user_with_email.id != id:
+                is_valid = False
+                flash('email already exits')
+        return is_valid
+
     @staticmethod
     def validate_login(data):
         is_valid = True

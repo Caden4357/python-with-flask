@@ -72,17 +72,29 @@ def one_users_profile(id):
         'id': id
     }
     this_user = user.User.get_one_user(data)
-    print(this_user)
     return render_template('user_profile.html', this_user=this_user)
 
-@app.route("/change_profile_pic/<int:id>")
-def change_profile_pic(id):
+@app.route("/edit_profile/<int:id>")
+def edit_profile(id):
     data = {
         'id': id
     }
     this_user=user.User.get_one_user(data)
-    print(this_user)
     return render_template('update_profile.html', this_user=this_user)
+
+@app.route("/update_profile/<int:id>", methods=['POST'])
+def update_profile(id):
+    if not user.User.validate_update_profile(request.form, id):
+        return redirect(url_for('edit_profile', id=id))
+    data = {
+        'id': id,
+        'first_name': request.form['first_name'],
+        'last_name': request.form['last_name'],
+        'email': request.form['email'],
+        'user_name': request.form['user_name'],
+    }
+    user.User.update_profile(data)
+    return redirect('/dashboard')
 
 @app.route('/update/profile_pic/<int:id>', methods=['POST'])
 def upload_profile_pic(id):

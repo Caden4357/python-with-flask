@@ -10,16 +10,26 @@
 </head>
 <body>
     <div class="container">
-        <h1>Update your profile picture {{this_user.user_name}}</h1>
+        <h1>Update your information</h1>
         <img style="height: 200px; width: 200px;" src="{{this_user.profile_pic}}" alt="">
-        <form action="/update/profile_pic/{{this_user.id}}" method="post" enctype=multipart/form-data>
-            <label for="profile_pic">Change Profile Picture</label>
-            <label for="file-upload" class="custom-file-upload">
-                Upload New Profile Picture
-            </label>
-            <input id="file-upload" type="file" name="file">
-            <input type="submit" value="Upload">
+        <form class="reg-form" action="/update_profile/{{this_user.id}}" method="post">
+            <label class="form-label" for="first_name">First Name:</label>
+            <input class="form-control" type="text" name="first_name" value="{{this_user.first_name}}">
+            <label class="form-label" for="last_name">Last Name:</label>
+            <input class="form-control" type="text" name="last_name" value="{{this_user.last_name}}">
+            <label class="form-label" for="email">Email:</label>
+            <input class="form-control" type="text" name="email" value="{{this_user.email}}">
+            <label class="form-label" for="user_name">Username:</label>
+            <input class="form-control" type="text" name="user_name" value="{{this_user.user_name}}">
+            <input class="btn btn-primary" type="submit" value="Submit">
         </form>
+        {% with messages = get_flashed_messages() %}   
+        {% if messages %}                           
+            {% for message in messages %}         
+                <p style="color: red;">{{message}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     </div>
 </body>
 </html>
