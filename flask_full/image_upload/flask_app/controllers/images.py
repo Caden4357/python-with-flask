@@ -48,6 +48,7 @@ def upload_file():
 
             info_for_file = {
                 'path': "/static/uploads/" + filename,
+                'image_description': request.form['image_description'],
                 'users_id': session['user_id']
             }
             image.Image.upload_image(info_for_file)

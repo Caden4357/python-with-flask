@@ -56,6 +56,7 @@ class User:
             image_info = {
                 'id': row['images.id'],
                 'path': row['path'],
+                'image_description': row['image_description'],
                 'created_at': row['images.created_at'],
                 'updated_at': row['images.updated_at']
             }

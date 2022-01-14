@@ -8,13 +8,14 @@ class Image:
     def __init__(self, data):
         self.id = data['id']
         self.path = data['path']
+        self.image_description = data['image_description']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.user = []
 
     @classmethod
     def upload_image(cls, data):
-        query = "INSERT INTO images (path, users_id) VALUES(%(path)s, %(users_id)s)"
+        query = "INSERT INTO images (path, image_description, users_id) VALUES(%(path)s, %(image_description)s, %(users_id)s)"
         results = connectToMySQL(cls.db_name).query_db(query, data)
         print(results)
         return results

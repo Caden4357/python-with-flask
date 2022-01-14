@@ -13,18 +13,23 @@ html{
     margin: 0;
     box-sizing: border-box;
 }
+/* .nav-wrapper{
+    width: 400px;
+} */
 .nav{
     height: 10rem;
+    max-width: 100%;
     position: relative;
     display: flex;
-    gap: 50rem;
+    justify-content: space-around;
+    /* gap: 52rem; */
     align-items: center;
     background-color: #ccc;
 }
-.nav-form{
+/* .nav-form{
     position: absolute;
     right:.5rem;
-}
+} */
 .login-header{
     font-size: 4.6rem;
     text-align: center;
