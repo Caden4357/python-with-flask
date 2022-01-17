@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Search With AJAX</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // load_data();
+            function load_data(query)
+            {
+                $.ajax({
+                    url:"/ajax/live/search",
+                    method:"POST",
+                    data: {query:query},
+                    success:function(data)
+                    {
+                        $('#result').html(data);
+                        $('#result').append(data.htmlresponse);
+                    }
+                });
+            }
+            $("#search_text").keyup(function(){
+                var search = $(this).val();
+                if(search != ''){
+                    load_data(search);
+                }else{
+                    load_data();
+                }
+            });
+        })
+    </script>
+</head>
+<body>
+    <div>
+        <h1>Test!</h1>
+        <form>
+            <input type="text" name="search_text" id="search_text" placeholder="Search friends">
+        </form>
+        <div id="result">
+            
+        </div>
+        <ul>
+            {%for employee in all_employees%}
+            <li>{{employee.name}} | {{employee.email}}</li>
+            {%endfor%}
+        </ul>
+    </div>
+</body>
+</html>

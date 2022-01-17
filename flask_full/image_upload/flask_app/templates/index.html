@@ -36,7 +36,7 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-        <form method=post action="/upload" enctype=multipart/form-data>
+        <form class="image-upload-form" method=post action="/upload" enctype=multipart/form-data>
             <label for="file-upload" class="custom-file-upload">
                 Upload Your Photos
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
@@ -50,18 +50,20 @@
             <textarea name="image_description" class="form-control" cols="30" rows="10"></textarea>
             <input type=submit value="Submit">
         </form>
-        <div style="display: flex; justify-content: space-evenly;">
-            {%for image in all_images%}
-            <div style="background-color: aliceblue; border: 2px solid black;">
-                <div style="height: 200px; width: 200px; ">
-                    <img style="width: 200px; image-rendering: pixelated;" src="{{image.path}}" alt="img">
+        <section class="image-section">
+            <div class="images-on-front-page">
+                {%for image in all_images%}
+                <div style="background-color: aliceblue; border: 2px solid black; margin-top: 10rem;">
+                    <div style="height: 200px; width: 200px; ">
+                        <img style="width: 200px; image-rendering: pixelated;" src="{{image.path}}" alt="img">
+                    </div>
+                    <h4>Posted By:</h4>
+                    <p>description: {{image.image_description}}</p>
+                    <p>{{image.user.user_name}}</p>
                 </div>
-                <h4>Posted By:</h4>
-                <p>description: {{image.image_description}}</p>
-                <p>{{image.user.user_name}}</p>
+                {%endfor%}
             </div>
-            {%endfor%}
-        </div>
+        </section>
     </div>
 </body>
 </html>

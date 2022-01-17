@@ -1,0 +1,17 @@
+<h3>Records Found</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for employee in employees%}
+        <tr>
+            <td>{{employee.name}}</td>
+            <td>{{employee.email}}</td>
+        </tr>
+        {%endfor%}
+    </tbody>
+</table>
