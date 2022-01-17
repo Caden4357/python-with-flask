@@ -77,6 +77,16 @@ class User:
         return connectToMySQL(cls.db_name).query_db(query,data)
 
     @classmethod
+    def search_for_users_by_username(cls, data):
+        # print(data['search_word'])
+        query = "SELECT * FROM users WHERE user_name LIKE %(search_word)s"
+        results = connectToMySQL(cls.db_name).query_db(query, data)
+        users = []
+        for user in results:
+            users.append(cls(user))
+        return users
+
+    @classmethod
     def change_password(cls,data):
         query = "UPDATE users set password = %(password)s WHERE id = %(id)s"
         return connectToMySQL(cls.db_name).query_db(query,data)

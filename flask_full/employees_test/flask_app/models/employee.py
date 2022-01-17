@@ -32,11 +32,7 @@ class Employee:
     
     @classmethod
     def search_for_employees(cls, data):
-        print(data['search_word'])
-        # search = data['search_word']
-        # print(search)
-        # search = f"'%{search}%'"
-        # print(search)
+        # print(data['search_word'])
         query = "SELECT * FROM employees WHERE name LIKE %(search_word)s OR email LIKE %(search_word)s"
         results = connectToMySQL(cls.db_name).query_db(query, data)
         employees = []

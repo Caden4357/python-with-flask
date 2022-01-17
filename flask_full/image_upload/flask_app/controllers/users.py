@@ -1,6 +1,6 @@
 from flask_app import app, mail
 import os
-from flask import render_template, redirect, request, session, url_for
+from flask import render_template, redirect, request, session, url_for, jsonify
 from ..models import user, image
 from flask import flash
 from werkzeug.utils import secure_filename
@@ -177,6 +177,16 @@ def reset_password(id):
     }
     user.User.change_password(data)
     return redirect('/')
+
+@app.route('/ajax/live/search', methods=["GET", "POST"])
+def ajax_live_search():
+    if request.method == "POST":
+        # print(request.form['query'])
+        data = {
+        'search_word':  f"%%{request.form['query']}%%"
+        }
+        search_results = user.User.search_for_users_by_username(data)
+    return jsonify({'htmlresponse': render_template('response.html', search_results = search_results)})
 
 
 @app.route('/logout')

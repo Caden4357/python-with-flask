@@ -80,8 +80,13 @@ a:hover{
     position: relative;
     top: 15%;
 }
+
 .login-form{
     max-height: 50%;
+}
+.search-results{
+    background-color: #ccc;
+    text-align: center;
 }
 .image-section{
     max-width: 120rem;

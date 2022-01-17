@@ -1,0 +1,6 @@
+{%if search_results%}
+<h3>Users found</h3>
+{% for user in search_results%}
+<h1>{{user.user_name}}</h1>
+{%endfor%}
+{%endif%}
