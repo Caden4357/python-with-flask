@@ -11,12 +11,10 @@ def index():
 
 @app.route('/ajax/live/search', methods=["GET", "POST"])
 def ajax_live_search():
-    data = {
+    if request.method == "POST":
+        print(request.form['query'])
+        data = {
         'search_word':  f"%%{request.form['query']}%%"
         }
-    if request.method == "POST":
-        if data['search_word'] == '':
-            employees = employee.Employee.get_in_order_by_id()
-        else:
-            employees = employee.Employee.search_for_employees(data)
+        employees = employee.Employee.search_for_employees(data)
     return jsonify({'htmlresponse': render_template('response.html', employees = employees)})

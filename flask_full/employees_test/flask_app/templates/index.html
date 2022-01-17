@@ -7,6 +7,32 @@
     <title>Employee Search With AJAX</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
+        // window.onload = (e) => {
+        //     let inputElement = document.getElementById("search_text");
+        //     inputElement.addEventListener("change", function(e){
+        //     function load_data(query)
+        //     {
+        //         $.ajax({
+        //             url:"/ajax/live/search",
+        //             method:"POST",
+        //             data: {query:query},
+        //             success:function(data)
+        //             {
+        //                 $('#result').html(data);
+        //                 $('#result').append(data.htmlresponse);
+        //             }
+        //         });
+        //     }
+        //     $("#search_text").keyup(function(){
+        //         var search = $(this).val();
+        //         if(search != ''){
+        //             load_data(search);
+        //         }else{
+        //             load_data();
+        //         }
+        //     });
+        //     })
+        // }
         $(document).ready(function(){
             // load_data();
             function load_data(query)
@@ -24,10 +50,11 @@
             }
             $("#search_text").keyup(function(){
                 var search = $(this).val();
-                if(search != ''){
-                    load_data(search);
+                $('#result').show();
+                if(!search){
+                    $('#result').hide();
                 }else{
-                    load_data();
+                    load_data(search);
                 }
             });
         })
@@ -36,9 +63,7 @@
 <body>
     <div>
         <h1>Test!</h1>
-        <form>
-            <input type="text" name="search_text" id="search_text" placeholder="Search friends">
-        </form>
+        <input type="text" name="search_text" id="search_text" placeholder="Search friends">
         <div id="result">
             
         </div>
