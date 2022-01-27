@@ -21,15 +21,15 @@ html{
     max-width: 100%;
     position: relative;
     display: flex;
-    justify-content: space-around;
+    /* justify-content: space-around; */
     /* gap: 52rem; */
     align-items: center;
     background-color: #ccc;
 }
-/* .nav-form{
+.nav-form{
     position: absolute;
     right:.5rem;
-} */
+}
 .login-header{
     font-size: 4.6rem;
     text-align: center;
@@ -85,8 +85,16 @@ a:hover{
     max-height: 50%;
 }
 .search-results{
-    background-color: #ccc;
+    margin: 0 auto;
+    width: 25%;
+    font-size: 1.8rem;
+    background-color: antiquewhite;
     text-align: center;
+}
+.search-results-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .image-section{
     max-width: 120rem;
@@ -99,4 +107,8 @@ a:hover{
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
+}
+.image-for-search-result{
+    width: 50px;
+    display: inline;
 }

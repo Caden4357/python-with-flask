@@ -45,13 +45,15 @@
             <nav class="nav">
                 <h1>Scrapbook</h1>
                 <!-- THIS SEARCH BAR SHOULD BE A SEARCHBAR THAT USES AJAX TO SEARCH FOR USERS BY THEIR USERNAME -->
-                <input type="text" name="search_text" id="search_text" placeholder="Search users">
-                <input class="btn btn-outline-success" type="submit">
+                <div class="nav-form">
+                    <input type="text" name="search_text" id="search_text" placeholder="Search users">
+                    <input class="btn btn-outline-success" type="submit">
+                </div>
             </nav>
-            <a href="/logout">Logout</a>
-        </div>
-        <div id="result" class="search-results">
+            <div id="result" class="search-results">
             
+            </div>
+            <a href="/logout">Logout</a>
         </div>
         <h1>Welcome {{this_user.user_name }}</h1>
         <a href="/profile/{{this_user.id}}">
@@ -80,6 +82,7 @@
             <input type=submit value="Submit">
         </form>
         <section class="image-section">
+            <h1>Images</h1>
             <div class="images-on-front-page">
                 {%for image in all_images%}
                 <div style="background-color: aliceblue; border: 2px solid black; margin-top: 10rem;">
