@@ -25,7 +25,7 @@ def dashboard():
         'id':session['user_id']
     }
     all_images = image.Image.get_all_images()
-    return render_template('index.html', all_images=all_images, this_user=user.User.get_one_user(data))
+    return render_template('index.html', all_images=all_images, this_user=user.User.get_one_user(data), name="Caden")
 
 @app.route('/upload', methods=['POST'])
 def upload_file():

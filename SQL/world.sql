@@ -24,7 +24,11 @@ where surface_area < 501 and population > 100000;
 SELECT countries.government_form as government_form, countries.capital as capital, countries.life_expectancy as life_expectancy FROM countries
 WHERE countries.government_form = "Constitutional Monarchy" and countries.capital > 200 and countries.life_expectancy > 75;
 
-SELECT * FROM cities
+SELECT countries.name as country_name,  cities.name as city_name, cities.district as district, cities.population as population from countries
+join cities on countries.id = cities.country_id
 WHERE cities.country_id = 9 and cities.district = "Buenos Aires" and cities.population > 500000;
 
-
+SELECT countries.region, COUNT(countries.name) as countries
+FROM countries
+GROUP BY countries.region
+ORDER BY countries DESC

@@ -1,3 +1,4 @@
+from email import message
 from flask import Flask, request, redirect, render_template, session
 import random
 app = Flask(__name__)
@@ -7,13 +8,14 @@ app.secret_key = "srecet yek"
 def index():
     if "count" not in session:
         session['count'] = 0
-    if 'messages' not in session:
-        session['messages'] = []
-    return render_template('index.html')
+    if "messages" not in session:
+        session['messages'] = ""
+    return render_template('index.html', messages=session['messages'])
 
 @app.route('/process_money', methods=["POST"])
 def proccess_money():
     if request.form['building'] == "farm":
+        print(request.form['building'])
         session['amount'] = random.randint(10,20)
         session['count'] += session['amount']
     elif request.form['building'] == "cave":
@@ -25,11 +27,11 @@ def proccess_money():
     elif request.form['building'] == "casino":
         session['amount'] = random.randint(-50,50)
         session['count'] += session['amount']
-    if session['amount'] > 0:
-        session['messages'].append(f"You earned {session['amount']} gold from {request.form['building']} ")
+    if session['amount'] >= 0:
+        session['messages']+=f"<p class='text-primary'>You earned {session['amount']} gold from {request.form['building']}</p>"
     else: 
-        session['messages'].append(f"You lost {session['amount']} gold from {request.form['building']} ")
-    print(session['messages'])
+        session['messages']+=f"<p class='text-danger'>You lost {session['amount']} gold from {request.form['building']}</p>"
+    # print(session['messages'])
     return redirect('/')
 
 @app.route('/reset')

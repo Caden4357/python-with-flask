@@ -8,6 +8,7 @@ class User:
         self.email = data['email']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+        
 
     @classmethod
     def save(cls,data):
@@ -30,3 +31,4 @@ class User:
         for user_data in results:
             users.append( user_data )
         return users
+

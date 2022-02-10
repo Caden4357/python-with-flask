@@ -1,0 +1,9 @@
+1.) Create dir ninja gold we need pipenv install flask and pipenv shell 
+2.) 1 html page (index.html) on this page we will have 4 seperate forms for each location we can use hidden inputs for the functionality we want since we want 1 route to process money
+3.) the post method process_money will determine how much gold to give or take in case of casino from ninja depending on what location they clicked on 
+4.) 2 routes is all thats needed 
+5.) process_money will also add each submition details to an activities list so we can display them on the front end and color code them good is green bad is red (lost money)
+6.)
+
+to start the game you have zero gold and 4 locations    (farm, cave, house, casino) -> these are gonna be 4 seperate forms 
+clicking on the locations earns you the specified amount (10-20,5-10,2-5,-50,50)
