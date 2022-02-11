@@ -35,7 +35,7 @@ class User:
 
     @classmethod
     def get_all_not_in_friends(cls, data):
-        query = 'SELECT DISTINCT users.user_name as user_name, users.profile_pic as profile_pic FROM users LEFT OUTER JOIN friendships ON (friendships.user_id = %(id)s and friendships.friend_id = users.id) WHERE users.id <> %(id)s AND friendships.friend_id is NULL'
+        query = 'SELECT DISTINCT users.id as user_id, users.user_name as user_name, users.profile_pic as profile_pic FROM users LEFT OUTER JOIN friendships ON (friendships.user_id = %(id)s and friendships.friend_id = users.id) WHERE users.id <> %(id)s AND friendships.friend_id is NULL'
         results = connectToMySQL(cls.db_name).query_db(query, data)
         print(f"RESULTS: {results}")
         return results
@@ -69,17 +69,17 @@ class User:
         results = connectToMySQL(cls.db_name).query_db(query, data)
         this_user = cls(results[0])
         for row in results:
-            image_info = {
-                'id': row['images.id'],
-                'path': row['path'],
-                'image_description': row['image_description'],
-                'created_at': row['images.created_at'],
-                'updated_at': row['images.updated_at']
-            }
             if row['images.id'] is not None:
+                image_info = {
+                    'id': row['images.id'],
+                    'path': row['path'],
+                    'image_description': row['image_description'],
+                    'created_at': row['images.created_at'],
+                    'updated_at': row['images.updated_at']
+                }
                 this_image = image.Image(image_info)
                 this_user.images.append(this_image)
-            print(f"this users images: {image_info}")
+            # print(f"this users images: {image_info}")
         return this_user
     
     @classmethod
@@ -102,6 +102,11 @@ class User:
             users.append(cls(user))
         return users
         
+    @classmethod
+    def follow_user(cls, data):
+        query = 'INSERT INTO friendships (user_id, friend_id) VALUES (%(user_id)s, %(friend_id)s)'
+        results = connectToMySQL(cls.db_name).query_db(query, data)
+        return results
 
     @classmethod
     def change_password(cls,data):

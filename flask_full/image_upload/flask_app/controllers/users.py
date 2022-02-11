@@ -190,6 +190,19 @@ def ajax_live_search():
         search_results = user.User.search_for_users_by_username(data)
     return jsonify({'htmlresponse': render_template('response.html', search_results = search_results)})
 
+@app.route('/follow_user/<int:id>', methods=["POST"])
+def follow_another_user(id):
+    if 'user_id' not in session:
+        return redirect('/')
+    else:   
+        data={
+            'user_id': session['user_id'],
+            'friend_id': id
+        }
+        user.User.follow_user(data)
+        return redirect('/dashboard')
+
+
 
 @app.route('/logout')
 def logout():
