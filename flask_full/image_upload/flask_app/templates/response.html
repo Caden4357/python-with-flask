@@ -2,7 +2,7 @@
 <h3>Users found</h3>
 {% for user in search_results%}
 <div class="search-results-div">
-    <img class="image-for-search-result" src="{{user.profile_pic}}" alt="">
+    <img class="tiny-image" src="{{user.profile_pic}}" alt="">
     <a href="/profile/{{user.id}}"><p style="display: inline; color: black;">{{user.user_name}}</p></a>
 </div>
 {%endfor%}

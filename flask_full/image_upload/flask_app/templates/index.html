@@ -40,69 +40,81 @@
     <!-- NEED TO MAKE BASETWO.HTML FOR DASHBOARD PROFILE ETC -->
     <!-- FINISH NAV BAR -->
     <!-- ADD DARK/LIGHT MODE OPTION -->
-    <div class="container">
-        <div class="nav-wrapper">
-            <nav class="nav">
-                <h1>Scrapbook</h1>
-                <!-- THIS SEARCH BAR SHOULD BE A SEARCHBAR THAT USES AJAX TO SEARCH FOR USERS BY THEIR USERNAME -->
-                <div class="nav-form">
-                    <input type="text" name="search_text" id="search_text" placeholder="Search users">
-                    <input class="btn btn-outline-success" type="submit">
-                </div>
-            </nav>
-            <div id="result" class="search-results">
-            
-            </div>
-            <a href="/logout">Logout</a>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <h1>Welcome {{this_user.user_name }}</h1>
-                <a href="/profile/{{this_user.id}}">
-                    <img style="height: 200px; width: 200px;" src="{{this_user.profile_pic}}" alt="">
-                </a>
-            </div>
-            <div class="col-md-4 ms-auto">
-                <h1>Upload New Photo</h1>
-                {% with messages = get_flashed_messages() %}   
-                    {% if messages %}                           
-                        {% for message in messages %}         
-                            <p style="color: red;">{{message}}</p>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
-                <form class="image-upload-form" method=post action="/upload" enctype=multipart/form-data>
-                    <label for="file-upload" class="custom-file-upload">
-                        Click here to choose a photo!
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
-                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-                            <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
-                        </svg>
-                    </label>
-                    <input id="file-upload" type=file name=file>
-                    <br>
-                    <label for="image_description">Description</label>
-                    <br>
-                    <textarea name="image_description" class="form-control" rows="4"></textarea>
-                    <input type=submit value="Upload">
-                </form>
-            </div>
-        </div>
-        <section class="image-section">
-            <h1>Images</h1>
-            <div class="images-on-front-page">
-                {%for image in all_images%}
-                <div style="background-color: aliceblue; border: 2px solid black; margin-top: 10rem;">
-                    <div style="height: 200px; width: 200px; ">
-                        <img style="width: 200px; image-rendering: pixelated;" src="{{image.path}}" alt="img">
+    <div class="container-fluid">
+        <div class="container">
+            <div class="nav-wrapper">
+                <nav class="nav">
+                    <div class="d-flex">
+                        <a href="/profile/{{this_user.id}}">
+                            <img style="height: 10rem; width: 10rem; border-radius: 15px;" src="{{this_user.profile_pic}}" alt="">
+                        </a>
+                        <h1>Welcome {{this_user.user_name }}</h1>
                     </div>
-                    <h4>Posted By:</h4>
-                    <p>description: {{image.image_description}}</p>
-                    <p>{{image.user.user_name}}</p>
+                    <h1>Scrapbook</h1>
+                    <!-- THIS SEARCH BAR SHOULD BE A SEARCHBAR THAT USES AJAX TO SEARCH FOR USERS BY THEIR USERNAME -->
+                    <div class="nav-form">
+                        <input type="text" name="search_text" id="search_text" placeholder="Search users">
+                        <input class="btn btn-outline-success" type="submit">
+                    </div>
+                </nav>
+                <div id="result" class="search-results">
+                
                 </div>
-                {%endfor%}
+                <a href="/logout">Logout</a>
             </div>
-        </section>
+            <div class="row">
+                <div class="col order-last" style="overflow: scroll; height: 400px;">
+                    <h1>Follow top scrapbookers</h1>
+                    {% for user in all_users_not_friends_with %} 
+                    <img class="tiny-image" src="{{user.profile_pic}}" alt="profile pic">
+                    <p>Name: {{user.user_name}}</p>
+                    <a href="{{user.id}}">Follow</a>
+                    <br>
+                    <hr>
+                    {%endfor%}
+                </div>
+                <div class="col order-first">
+                    <h1>Upload New Photo</h1>
+                    {% with messages = get_flashed_messages() %}   
+                        {% if messages %}                           
+                            {% for message in messages %}         
+                                <p style="color: red;">{{message}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <form class="image-upload-form" method=post action="/upload" enctype=multipart/form-data>
+                        <label for="file-upload" class="custom-file-upload">
+                            Click here to choose a photo!
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
+                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                            </svg>
+                        </label>
+                        <input id="file-upload" type=file name=file>
+                        <br>
+                        <label for="image_description">Description</label>
+                        <br>
+                        <textarea name="image_description" class="form-control" rows="4"></textarea>
+                        <input type=submit value="Upload">
+                    </form>
+                </div>
+            </div>
+            <section class="image-section">
+                <h1>Images</h1>
+                <div class="images-on-front-page">
+                    {%for image in all_images%}
+                    <div style="background-color: aliceblue; border: 2px solid black; margin-top: 10rem;">
+                        <div style="height: 200px; width: 200px; ">
+                            <img style="width: 200px; image-rendering: pixelated;" src="{{image.path}}" alt="img">
+                        </div>
+                        <h4>Posted By:</h4>
+                        <p>description: {{image.image_description}}</p>
+                        <p>{{image.user.user_name}}</p>
+                    </div>
+                    {%endfor%}
+                </div>
+            </section>
+        </div>
     </div>
 </body>
 </html>

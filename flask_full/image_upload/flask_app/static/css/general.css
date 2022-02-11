@@ -16,8 +16,17 @@ html{
 /* .nav-wrapper{
     width: 400px;
 } */
+.container-fluid{
+    background-color: aliceblue;
+
+}
+.container{
+    background-color: white;
+    padding: 0;
+
+}
 .nav{
-    height: 10rem;
+    height: 15rem;
     max-width: 100%;
     /* position: relative; */
     display: flex;
@@ -110,7 +119,7 @@ a:hover{
     justify-content: space-evenly;
     flex-wrap: wrap;
 }
-.image-for-search-result{
+.tiny-image{
     width: 50px;
     display: inline;
 }

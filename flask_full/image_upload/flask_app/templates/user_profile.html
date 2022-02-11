@@ -11,7 +11,8 @@
 <body>
     <div class="container">
         <h1>{{this_user.user_name}}</h1>
-        <img style="height: 200px; width: 200px;" src="{{this_user.profile_pic}}" alt="">
+        <img style="border-radius: 15px; -webkit-box-shadow: 0px 0px 0px 8px #000000, 0px 0px 0px 16px #4B4C4B, 0px 0px 0px 24px #828482, 0px 0px 0px 31px #B2B5B2, 0px 0px 0px 39px #DADDDA, 5px 5px 15px 5px rgba(0,0,0,0); 
+        box-shadow: 0px 0px 0px 8px #000000, 0px 0px 0px 16px #4B4C4B, 0px 0px 0px 24px #828482, 0px 0px 0px 31px #B2B5B2, 0px 0px 0px 39px #DADDDA, 5px 5px 15px 5px rgba(0,0,0,0);" src="{{this_user.profile_pic}}" alt="">
         <br>
         <a href="/edit_profile/{{this_user.id}}">Update information</a>
         <form action="/update/profile_pic/{{this_user.id}}" method="post" enctype=multipart/form-data>

@@ -31,6 +31,22 @@ class User:
         print(f"Results: {results}")
         return results
 
+
+
+    @classmethod
+    def get_all_not_in_friends(cls, data):
+        query = 'SELECT DISTINCT users.user_name as user_name, users.profile_pic as profile_pic FROM users LEFT OUTER JOIN friendships ON (friendships.user_id = %(id)s and friendships.friend_id = users.id) WHERE users.id <> %(id)s AND friendships.friend_id is NULL'
+        results = connectToMySQL(cls.db_name).query_db(query, data)
+        print(f"RESULTS: {results}")
+        return results
+
+    @classmethod
+    def get_all(cls):
+        query = 'SELECT * FROM users;'
+        results = connectToMySQL(cls.db_name).query_db(query)
+        return results
+
+
     @classmethod
     def get_by_email(cls, data):
         query = "SELECT * FROM users WHERE email = %(email)s"
@@ -85,6 +101,7 @@ class User:
         for user in results:
             users.append(cls(user))
         return users
+        
 
     @classmethod
     def change_password(cls,data):

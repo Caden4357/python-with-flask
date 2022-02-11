@@ -65,6 +65,8 @@ def login():
     session['user_name'] = user_from_db.user_name
     return redirect('/dashboard')
 
+
+
 @app.route('/profile/<int:id>')
 def one_users_profile(id):
     print(id)
