@@ -36,6 +36,17 @@ html{
     align-items: center;
     background-color: #ccc;
 }
+.profile-nav{
+    height: 9rem;
+    width: 9rem;
+    border-radius: 15px;
+    -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
+box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+}
+.main-header{
+    font-size: 3.8rem;
+    padding-left: 14rem;
+}
 /* .nav-form{
     position: absolute;
     right:.5rem;
@@ -54,6 +65,7 @@ html{
     height: 100%;
     background-color: rgb(87, 40, 40);
 }
+
 label{
     font-size: 2.2rem;
 }
@@ -66,12 +78,13 @@ input[type="file"] {
     display: none;
 }
 .custom-file-upload {
+    margin-top: 2rem;
     border: 1px solid #ccc;
     display: inline-block;
-    padding: 6px 12px;
+    padding: 1rem 2rem;
     cursor: pointer;
     margin-bottom: 2.4rem;
-    background-color: orange;
+    background-color: rgb(190, 186, 177);
 }
 .image-upload-form{
     width: 40rem;
@@ -99,14 +112,13 @@ a:hover{
     margin: 0 auto;
     width: 25%;
     font-size: 1.8rem;
-    background-color: antiquewhite;
     text-align: center;
 }
-.search-results-div{
+/* .search-results-div{
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} */
 .image-section{
     max-width: 120rem;
     /* background-color: #ccc; */

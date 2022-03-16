@@ -6,7 +6,7 @@ import re
 from ..models import image
 
 # TODOLIST:
-# 1.) UPDATE USER SO THEY CAN UPDATE EVERYTHING INCLUDING PASSWORD VIA EMAIL 
+# 1.) 
 # 2.) 
 #///////////////////////////////////////////////////////////////////
 
@@ -43,7 +43,6 @@ class User:
         query = 'SELECT * FROM users;'
         results = connectToMySQL(cls.db_name).query_db(query)
         return results
-
 
     @classmethod
     def get_by_email(cls, data):
