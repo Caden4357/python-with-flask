@@ -8,13 +8,13 @@ def index():
 @app.route('/checkout', methods=['POST'])         
 def checkout():
     print(request.form)
-    # order= [
-    #     {'first_name': request.form['first_name']},
-    #     {'last_name': request.form['last_name']},
-    #     {'strawberry': request.form['strawberry']},
-    #     {'raspberry': request.form['raspberry']},
-    #     {'apple': request.form['apple']}
-    # ]
+    order= {
+        {'first_name': request.form['first_name']},
+        {'last_name': request.form['last_name']},
+        {'strawberry': request.form['strawberry']},
+        {'raspberry': request.form['raspberry']},
+        {'apple': request.form['apple']}
+    }
     first_name = request.form['first_name']
     count = int(request.form['strawberry']) + int(request.form['raspberry']) + int(request.form['apple'])
     order = request.form

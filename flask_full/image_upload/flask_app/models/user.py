@@ -31,8 +31,6 @@ class User:
         print(f"Results: {results}")
         return results
 
-
-
     @classmethod
     def get_all_not_in_friends(cls, data):
         query = 'SELECT DISTINCT users.id as user_id, users.user_name as user_name, users.profile_pic as profile_pic FROM users LEFT OUTER JOIN friendships ON (friendships.user_id = %(id)s and friendships.friend_id = users.id) WHERE users.id <> %(id)s AND friendships.friend_id is NULL'

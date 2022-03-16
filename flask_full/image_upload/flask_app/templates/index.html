@@ -61,17 +61,19 @@
                 </div>
                 <a href="/logout">Logout</a>
             <div class="row">
-                <div class="col-4" style="overflow: scroll; height: 400px;">
+                <div class="col-4" style="overflow: scroll; height: 40rem;">
                     <h1>Follow top scrapbookers</h1>
-                    {% for user in all_users_not_friends_with %} 
-                    <img class="tiny-image" src="{{user.profile_pic}}" alt="profile pic">
-                    <p class="">Name: {{user.user_name}}</p>
-                    <form action="/follow_user/{{user.user_id}}" method="post">
-                        <input type="submit" value="Follow">
-                    </form>
-                    <br>
-                    <hr>
-                    {%endfor%}
+                    {% if all_users_not_friends_with %}
+                        {% for user in all_users_not_friends_with %} 
+                        <img class="tiny-image" src="{{user.profile_pic}}" alt="profile pic">
+                        <p class="">Name: {{user.user_name}}</p>
+                        <form action="/follow_user/{{user.user_id}}" method="post">
+                            <input type="submit" value="Follow">
+                        </form>
+                        <br>
+                        <hr>
+                        {%endfor%}
+                    {% endif %}
                 </div>
                 <div class="col-8 order-first">
                     <h1>Upload New Photo</h1>
